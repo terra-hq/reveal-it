@@ -13,6 +13,10 @@ class RevealIt{
         if (!this.element) {
             console.warn("RevealIt: No element provided");
         }
+        // USE THIS.DOM FOR ALL SELECTORS
+        // this.DOM = {
+        //     element: this.element // use this.DOM for all animations
+        // }
         this.tl = gsap.timeline({});
         console.log(this);
         this.init();
