@@ -3,9 +3,55 @@ import "./../scss/index.scss";
 import RevealIt from "./RevealIt";
 
 //@ts-ignore
-var simpleReveal = new RevealIt({
-    element: document.querySelector(".js--reveal-it"),
+var simpleReveal = new RevealIt({}); // document.querySelectorAlL(".js--reveal-it") =>  por defecto busca el primer elemento que tenga
+
+// referencias para getAnimation
+// simpleReveal.getAnimation.play();
+// simpleReveal.getAnimation.ScrollTrigger.normalizeScroll(true);
+// simpleReveal.getAnimation.ScrollTrigger.enable()
+
+document.querySelectorAll(".js--reveal-it").forEach((element) => {
+    //@ts-ignore
+    var multipleReveal = new RevealIt({
+        element:element, // por defecto que tome esto.
+    });
 });
+
+
+
+
+
+
+// //@ts-ignore
+// const advancedExample = new RevealIt({
+//     element: document.querySelector(".js--reveal-it"),
+//     type: "fromTo",
+//     animationOptions: [{
+//         ease: 'power2.inOut',
+//         opacity: 0
+//     },{}]
+//     animationOptionsMobile:{
+//         ease: 'power2.inOut',
+//         opacity: 0
+//     },
+//     intitialTrigger: "top 80%",
+//     onStart: () => {
+//         console.log("complete");
+//     },
+//     onComplete: () => {
+//         console.log("complete");
+//     },
+// });
+
+
+
+
+
+
+
+
+
+
 // // @ts-ignore
 // import Collapsify from "./Collapsify.js";
 
