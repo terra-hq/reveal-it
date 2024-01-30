@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@andresclua/jsutil": "^3.0.16",
+    "@teamthunderfoot/breakpoints": "^0.0.83",
     "gsap": "^3.12.5"
   }
 }
