@@ -6,34 +6,66 @@ gsap.registerPlugin(ScrollTrigger)
 
 import { breakpoints, currentBreakpoint, getCurrentBreakpoint, updateBreakpointOnResize } from '@teamthunderfoot/breakpoints';
 
-class RevealIt{
+class RevealIt {
     constructor(_payload = {}) {
         console.log('RevealIt', _payload);
-        this.element = _payload.element;
-        if (!this.element) {
+
+        // Default options
+        const defaultOptions = {
+            duration: 1,
+            opacity: 0,
+            yoyo: true,
+            repeat: -1,
+            onStart: null,
+            onComplete: null
+        };
+        // Merge default options with user-provided options
+        this.options = { ...defaultOptions, ..._payload.options };
+        this.DOM = { element: _payload.element };
+
+        if (!this.DOM.element) {
             console.warn("RevealIt: No element provided");
+            return; // Exit if no element is provided
         }
-        // USE THIS.DOM FOR ALL SELECTORS
-        // this.DOM = {
-        //     element: this.element // use this.DOM for all animations
-        // }
+
         this.tl = gsap.timeline({});
-        console.log(this);
         this.init();
     }
 
     init() {
-        this.tl.to(this.element, { duration: 1, opacity: 0, yoyo: true, repeat: -1 });        
+
+        this.tl = gsap.timeline({
+            onStart: () => {
+                if (typeof this.options.onStart === 'function') {
+                    this.options.onStart();
+                }
+            },
+            onComplete: () => {
+                if (typeof this.options.onComplete === 'function') {
+                    this.options.onComplete();
+                }
+            }
+        });
+
+        // Use options from this.options
+        this.tl.to(this.DOM.element, {
+            duration: this.options.duration,
+            opacity: this.options.opacity,
+            yoyo: this.options.yoyo,
+            repeat: this.options.repeat
+        });
     }
 
-    getAnimation(){
-       return this.tl;
+    getAnimation() {
+        return this.tl;
     }
-    destroy(){
-
+    destroy() {
+        // Kill the GSAP timeline
+        this.tl.kill();
     }
-    refresh(){
-
+    refresh() {
+        this.destroy(); // Clean up existing timeline
+        this.init(); // Reinitialize
     }
 }
 export default RevealIt;

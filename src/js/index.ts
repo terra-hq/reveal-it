@@ -38,6 +38,40 @@ document.getElementById('toggleAllAnimations').addEventListener('click', functio
     });
 });
 
+//Custom reveal-it
+const customReveal = new RevealIt({
+    element: document.querySelector(".js--reveal-it-custom"),
+    options: {
+        duration: 2,
+        opacity: 0,
+        yoyo: false,
+        repeat: 3
+    }
+});
+//@ts-ignore
+document.getElementById('triggerCustomAnimation').addEventListener('click', function () {
+    customReveal.getAnimation().restart();
+});
+
+
+// Create a RevealIt instance with callbacks
+const revealWithCallbacks = new RevealIt({
+    element: document.querySelector(".js--reveal-it-callback"),
+    options: {
+        duration: 1,
+        opacity: 0,
+        yoyo: false,
+        repeat: 2,
+        onStart: () => console.log("Animation started"),
+        onComplete: () => console.log("Animation completed")
+    }
+});
+
+//@ts-ignore
+document.getElementById('triggerAnimationWithCallbacks').addEventListener('click', function() {
+    revealWithCallbacks.getAnimation().restart();
+});
+
 // referencias para getAnimation
 // simpleReveal.getAnimation.play();
 // simpleReveal.getAnimation.ScrollTrigger.normalizeScroll(true);
