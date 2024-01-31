@@ -16,6 +16,13 @@ class RevealIt {
             opacity: 0,
             yoyo: true,
             repeat: -1,
+            ease: "power1.inOut",  
+            delay: 0,             
+            stagger: 0,           
+            scale: 1,             
+            rotation: 0,          
+            x: 0,                 
+            y: 0,                 
             onStart: null,
             onComplete: null
         };
@@ -49,10 +56,19 @@ class RevealIt {
 
         // Use options from this.options
         this.tl.to(this.DOM.element, {
+            
             duration: this.options.duration,
             opacity: this.options.opacity,
             yoyo: this.options.yoyo,
-            repeat: this.options.repeat
+            repeat: this.options.repeat,
+            ease: this.options.ease,
+            delay: this.options.delay,
+            stagger: this.options.stagger,
+            scale: this.options.scale,
+            rotation: this.options.rotation,
+            x: this.options.x,
+            y: this.options.y
+            
         });
     }
 
