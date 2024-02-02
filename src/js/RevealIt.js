@@ -13,7 +13,7 @@ class RevealIt {
         this.DOM = { element: _payload.element };
         this.animateOnMobile = _payload.animateOnMobile !== undefined ? _payload.animateOnMobile : true; // Default to true
         this.optionsOnBreakpoint = _payload.optionsOnBreakpoint;
-        this.mediaQueriesConfig = _payload.mediaQueriesConfig || {};
+        //this.mediaQueriesConfig = _payload.mediaQueriesConfig || {};
 
         // Default options
         const defaultOptions = {
@@ -49,7 +49,7 @@ class RevealIt {
         this.init();
     }
 
-    init() {
+    init() {        
 
         // Determine current viewport width and apply options based on the breakpoint
         const isBelowBreakpoint = this.optionsOnBreakpoint && currentBreakpoint.currentWidth <= this.optionsOnBreakpoint.breakpoint;
@@ -93,13 +93,19 @@ class RevealIt {
             default:
                 console.warn(`RevealIt: Unsupported animation type '${this.type}'`);
         }
-    }
 
-    disableAnimations() {
-        if (this.tl) {
-            //speeds up animations for accessibility
-            this.tl.timeScale(100);
-        }
+        //MATCHMEDIA TESTING
+        let bk = breakpoints.reduce((target, inner) => Object.assign(target, inner), {});
+        let mm = gsap.matchMedia();
+        mm.add(`(max-width:${bk.mobile}px)`,() => {
+            //gsap.to(this.DOM.element, { ...this.options, scrollTrigger: scrollTriggerConfig });
+            gsap.to(".box",{rotation:360,duration:2})
+            //console.log(this.tl);
+        })
+        mm.add(`(min-width:${bk.mobile+1}px)`,() => {
+            gsap.to(".box",{rotation:-360,duration:2})
+        })
+
     }
 
     getAnimation() {

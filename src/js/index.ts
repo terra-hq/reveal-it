@@ -2,6 +2,7 @@ import "./../scss/index.scss";
 //@ts-ignore
 import RevealIt from "./RevealIt";
 
+
 //Simple - one element
 var element = document.querySelector('.js--reveal-it--simple');
 var simpleReveal = new RevealIt({
