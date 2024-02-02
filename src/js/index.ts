@@ -7,7 +7,6 @@ var element = document.querySelector('.js--reveal-it--simple');
 var simpleReveal = new RevealIt({
     element: element,
     options: {
-
         onStart: function () {
             //@ts-ignore
             element.classList.add('animation-started');
@@ -23,17 +22,21 @@ var simpleReveal = new RevealIt({
         }
     },
     optionsOnBreakpoint: {
+        breakpoint: 580,
         type: 'from',
         animation: {
             opacity: 0.5,
             rotate: -180,
             duration: 2,
         },
-        breakpoint: 580,
+        scrollTrigger: {
+            end: "bottom center",
+            scrub: true,
+        }
     },
     animateOnMobile: true,
-
 });
+
 
 //Simple - multiple elements
 var reveals = [];

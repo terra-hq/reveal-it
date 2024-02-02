@@ -13,6 +13,7 @@ class RevealIt {
         this.DOM = { element: _payload.element };
         this.animateOnMobile = _payload.animateOnMobile !== undefined ? _payload.animateOnMobile : true; // Default to true
         this.optionsOnBreakpoint = _payload.optionsOnBreakpoint;
+        this.mediaQueriesConfig = _payload.mediaQueriesConfig || {};
 
         // Default options
         const defaultOptions = {
@@ -27,7 +28,7 @@ class RevealIt {
             onComplete: () => console.log("finish"),
             // Add any other animation defaults here
         };
-  
+
         // Merge default options with user-provided options
         this.options = { ...defaultOptions, ..._payload.options };
         this.initialTrigger = _payload.initialTrigger ? _payload.initialTrigger : "top 80%";
@@ -49,12 +50,24 @@ class RevealIt {
     }
 
     init() {
-        console.log(currentBreakpoint);
-        if (this.optionsOnBreakpoint && currentBreakpoint.currentWidth <= this.optionsOnBreakpoint.breakpoint) {
-            // Adjust the options based on the breakpoint specifics
-            this.options = { ...this.options, ...this.optionsOnBreakpoint.animation };
+
+        // Determine current viewport width and apply options based on the breakpoint
+        const isBelowBreakpoint = this.optionsOnBreakpoint && currentBreakpoint.currentWidth <= this.optionsOnBreakpoint.breakpoint;
+
+        // Merge default options with breakpoint-specific ones if applicable
+        if (isBelowBreakpoint) {
+            this.options = {
+                ...this.options,
+                ...this.optionsOnBreakpoint.animation,
+                scrollTrigger: {
+                    ...this.options.scrollTrigger,
+                    ...this.optionsOnBreakpoint.scrollTrigger
+                }
+            };
             this.type = this.optionsOnBreakpoint.type || this.type;
         }
+
+        // Configure ScrollTrigger with possibly adjusted options
         const scrollTriggerConfig = {
             trigger: this.DOM.element,
             start: this.initialTrigger,
@@ -88,17 +101,9 @@ class RevealIt {
             this.tl.timeScale(100);
         }
     }
-    
+
     getAnimation() {
         return this.tl;
-    }
-
-    toggle() {
-        if (this.tl.isActive()) {
-            this.tl.pause();
-        } else {
-            this.tl.play();
-        }
     }
 
     refresh() {
