@@ -28,7 +28,6 @@
             </div>
         </div>
     </div>
-<div class="box" style="width: 100px; height: 100px; background:red;">test</div>
 
     <div class="f--container">
         <div class="f--row">
@@ -336,12 +335,135 @@ const revealWithCallbacks = new RevealIt({
         <div class="f--row">
             <div class="f--col-12">
                 <hr />
-                <div class="js--rc" style="border: 1px solid black;">TEST<br/>TEST<br/>TEST<br/>TEST</div>
             </div>
         </div>
     </div>
 
-   
+    <div class="f--container">
+        <div class="f--row">
+            <div class="f--col-6 f--col-tabletm-12">
+                <h3 class="f--font-c f--sp-d">Responsive Animation</h3>
+                <p class="f--font-e f--sp-d">
+                    This example demonstrates how to apply a continuous rotation animation to an element with the '.box2' class, adjusting its behavior based on the viewport size. Using GSAP's matchMedia, the animation rotates the element in one direction by default, reverses the rotation below the 'tabletm' breakpoint, and applies an additional scale transformation below the 'mobile' breakpoint. This approach enhances the interactive experience by providing visual feedback that adapts to different device sizes.
+                </p>
+                <!-- Example element with the RevealIt animation -->
+                <div class="f--row u--justify-content-center f--sp-c">
+                    <div class="c--content-a box2" style="width: 100px; height: 100px; background:rgb(133, 21, 167); padding:1rem; color:#fff;">
+                        <p class="f--font-e f--sp-d">
+                            Resize your browser
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="f--col-6 f--col-tabletm-12">
+    <pre class="c--code-a">
+    <label class="c--code-a__label">JS</label>
+    <code class="c--code-a__content">
+    // Define responsive animation options for the purple square
+    const breakpointOptionsRotate = {
+        defaultRotation: {
+            minWidth: 'tabletm',
+            animationOptions: {
+                rotate: 360, 
+                duration: 2, 
+                repeat: -1, 
+                ease: "none" 
+            }
+        },
+        reverseRotation: {
+            maxWidth: 'tabletm', 
+            animationOptions: {
+                rotate: -360, 
+                duration: 2, 
+                repeat: -1, 
+                ease: "none" 
+            }
+        },
+        reverseRotationScale: {
+            maxWidth: 'mobile', 
+            animationOptions: {
+                scale: 2,
+                duration: 2, 
+                repeat: -1, 
+                ease: "none" 
+            }
+        }
+    };
+    
+    // Initialize the animation on the '.box2' element
+    const box2Reveal = new RevealIt({
+        element: document.querySelector('.box2'),
+        animateOnMobile: true,
+        breakpointOptions: breakpointOptionsRotate
+    });
+    </code>
+    </pre>
+                <div class="c--note-a">
+                    <p>
+                        The RevealIt class, in conjunction with GSAP and its matchMedia feature, enables responsive and dynamic animations. By specifying different animation behaviors for various viewport sizes, content can be made more engaging and visually interactive across all devices.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="f--container">
+        <div class="f--row">
+            <div class="f--col-12">
+                <hr />
+            </div>
+        </div>
+    </div>
+
+    <div class="f--container">
+        <div class="f--row">
+            <div class="f--col-6 f--col-tabletm-12">
+                <h3 class="f--font-c f--sp-d">Responsive ScrollTrigger Animation</h3>
+                <p class="f--font-e f--sp-d">
+                    This example showcases a ScrollTrigger-based animation for a red square, demonstrating different behaviors based on the viewport size. On larger screens, the square becomes fully opaque and remains stationary. On smaller screens, it fades to half opacity and moves downward as the user scrolls, enhancing visual interest and interactivity.
+                </p>
+                <div class="c--content-a box3" style="width: 100px; height: 100px; background:red; padding:1rem; color:#fff;">
+                    <p class="f--font-e f--sp-d">Scroll and resize</p>
+                </div>
+            </div>
+            <div class="f--col-6 f--col-tabletm-12">
+    <pre class="c--code-a">
+    <label class="c--code-a__label">JS</label>
+    <code class="c--code-a__content">
+    // Define responsive ScrollTrigger animation options for the red square
+    const breakpointOptionsScroll = {
+        largerScreen: {
+            minWidth: 'tablets', // Logic for larger screens
+            animationOptions: {
+                // Animation options for larger screens
+            }
+        },
+        smallerScreen: {
+            maxWidth: 'tablets', // Logic for smaller screens
+            animationOptions: {
+                // Animation options for smaller screens
+            }
+        }
+    };
+    
+    // Initialize the animation on the '.box3' element
+    const box3Reveal = new RevealIt({
+        element: document.querySelector('.box3'),
+        animateOnMobile: true,
+        breakpointOptions: breakpointOptionsScroll
+    });
+    </code>
+    </pre>
+                <div class="c--note-a">
+                    <p>
+                        By leveraging GSAP's ScrollTrigger and matchMedia features, the RevealIt class enables sophisticated, responsive animations that react not only to scroll events but also adapt to different screen sizes, ensuring a dynamic and engaging user experience across all devices.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
     <script type="module" src="./js/index.ts"></script>
 </body>

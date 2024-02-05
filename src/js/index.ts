@@ -22,19 +22,6 @@ var simpleReveal = new RevealIt({
             markers: true
         }
     },
-    optionsOnBreakpoint: {
-        breakpoint: 580,
-        type: 'from',
-        animation: {
-            opacity: 0.5,
-            rotate: -180,
-            duration: 2,
-        },
-        scrollTrigger: {
-            end: "bottom center",
-            scrub: true,
-        }
-    },
     animateOnMobile: true,
 });
 
@@ -110,4 +97,86 @@ const revealWithScroll2 = new RevealIt({
     }
 });
 
+//MATCHMEDIA
 
+// red square options
+const breakpointOptionsScroll = {
+    largerScreen: {
+        minWidth: 'tablets', 
+        animationOptions: {
+            opacity: 1,
+            duration: 1,
+            x: 100,
+            yoyo:true,
+            repeat:-1,
+            scrollTrigger: {
+                trigger: ".box3",
+                start: "top center",
+                toggleActions: 'play none none none',
+            },
+            onStart: () => console.log("Animation started on larger screens"),
+            onComplete: () => console.log("Animation completed on larger screens"),
+        }
+    },
+
+    smallerScreen: {
+        maxWidth: 'tablets', 
+        animationOptions: {
+            opacity: 0.5,
+            duration: 1.5,
+            y: 100,
+            yoyo:false,
+            scrollTrigger: {
+                trigger: ".box3",
+                start: "top center+=100",
+                toggleActions: 'play none none none',
+            },
+            onStart: () => console.log("Animation started on smaller screens"),
+            onComplete: () => console.log("Animation completed on smaller screens"),
+        }
+    }
+};
+//red square instance
+const box3Reveal = new RevealIt({
+    element: document.querySelector('.box3'),
+    animateOnMobile: true,
+    breakpointOptions: breakpointOptionsScroll
+});
+
+// purple square options
+const breakpointOptionsRotate = {
+    defaultRotation: {
+        minWidth: 'tabletm',
+        animationOptions: {
+            rotate: 360, 
+            duration: 2, 
+            repeat: -1, 
+            ease: "none" 
+        }
+    },
+    reverseRotation: {
+        maxWidth: 'tabletm', 
+        animationOptions: {
+            rotate: -360, 
+            duration: 2, 
+            repeat: -1, 
+            ease: "none" 
+        }
+    },
+    reverseRotationScale: {
+        maxWidth: 'mobile', 
+        animationOptions: {
+            scale: 2,
+            duration: 2, 
+            repeat: -1, 
+            ease: "none" 
+        }
+    }
+};
+
+// purple square instance
+const box2Reveal = new RevealIt({
+    element: document.querySelectorAll('.box2'),
+    animateOnMobile: true,
+    breakpointOptions: breakpointOptionsRotate
+});
