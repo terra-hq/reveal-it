@@ -2,7 +2,18 @@ import "./../scss/index.scss";
 //@ts-ignore
 import RevealIt from "./RevealIt";
 
-
+//Simple - one element
+//@ts-ignore
+var firsElement = document.querySelector('.js--reveal-it');
+//@ts-ignore
+var presentation = new RevealIt({
+    element: firsElement,
+    options: {
+        duration: 1,
+        opacity: 0,
+        y: -50,
+    }
+});
 //Simple - one element
 //@ts-ignore
 var element = document.querySelector('.js--reveal-it--simple');
