@@ -62,8 +62,7 @@ const customReveal = new RevealIt({
         duration: 2,
         opacity: 0,
         yoyo: false,
-        repeat: 0,
-        scale: .2,
+        repeat: 3
     }
 });
 //@ts-ignore
