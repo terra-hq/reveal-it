@@ -1,10 +1,10 @@
 {
   "name": "@terrahq/reveal-it",
   "private": false,
-  "version": "0.0.16",
+  "version": "1.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/js/Collapsify.js"
+    ".": "./src/js/RevealIt.js"
   },
   "scripts": {
     "dev": "vite",
