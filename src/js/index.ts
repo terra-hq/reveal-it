@@ -4,7 +4,9 @@ import RevealIt from "./RevealIt";
 
 
 //Simple - one element
+//@ts-ignore
 var element = document.querySelector('.js--reveal-it--simple');
+//@ts-ignore
 var simpleReveal = new RevealIt({
     element: element,
     options: {
@@ -27,7 +29,9 @@ var simpleReveal = new RevealIt({
 
 
 //Simple - multiple elements
+//@ts-ignore
 var reveals = [];
+//@ts-ignore
 document.querySelectorAll('.js--reveal-it--multiple').forEach(function (element) {
     reveals.push(new RevealIt({
         element: element, options: {
@@ -40,6 +44,7 @@ document.querySelectorAll('.js--reveal-it--multiple').forEach(function (element)
 });
 
 //Custom reveal-it
+//@ts-ignore
 const customReveal = new RevealIt({
     element: document.querySelector(".js--reveal-it-custom"),
     options: {
@@ -57,6 +62,7 @@ document.getElementById('triggerCustomAnimation').addEventListener('click', func
 
 
 // Create a RevealIt instance with callbacks
+//@ts-ignore
 const revealWithCallbacks = new RevealIt({
     element: document.querySelector(".js--reveal-it-callback"),
     options: {
@@ -76,6 +82,7 @@ document.getElementById('triggerAnimationWithCallbacks').addEventListener('click
 
 
 //Scrolltrigger
+//@ts-ignore
 const revealWithScroll = new RevealIt({
     element: document.querySelector(".js--reveal-it-scrolltrigger"),
     options: {
@@ -88,6 +95,7 @@ const revealWithScroll = new RevealIt({
 
     },
 });
+//@ts-ignore
 const revealWithScroll2 = new RevealIt({
     element: document.querySelector(".js--rc"),
     type: "from",
@@ -137,6 +145,7 @@ const breakpointOptionsScroll = {
     }
 };
 //red square instance
+//@ts-ignore
 const box3Reveal = new RevealIt({
     element: document.querySelector('.box3'),
     animateOnMobile: true,
@@ -144,6 +153,7 @@ const box3Reveal = new RevealIt({
 });
 
 // purple square options
+//@ts-ignore
 const breakpointOptionsRotate = {
     defaultRotation: {
         minWidth: 'tabletm',
@@ -175,6 +185,7 @@ const breakpointOptionsRotate = {
 };
 
 // purple square instance
+//@ts-ignore
 const box2Reveal = new RevealIt({
     element: document.querySelectorAll('.box2'),
     animateOnMobile: true,
