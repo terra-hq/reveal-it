@@ -80,10 +80,71 @@ const revealWithCallbacks = new RevealIt({
 | onStart           | function                                 | console.log("start")                       | Callback function that runs at the start of the animation.                                                              |
 | onComplete        | function                                 | console.log("finish")                       | Callback function that runs upon completion of the animation.                                                           |
 
-## Initialize with options and breakpoints
 
-### JS
+## Responsive Animation Example with Breakpoints
+
+This example demonstrates how to use `RevealIt` to create responsive animations that behave differently based on the viewport size. By specifying breakpoint options, you can define unique animation behaviors for various screen sizes.
+
+### Example Code
+
 ```javascript
+// Define breakpoint options for responsive animations
+const breakpointOptionsScroll = {
+    largerScreen: {
+        minWidth: 'tablets',
+        animationOptions: {
+            opacity: 1,
+            duration: 1,
+            x: 100,
+            yoyo: true,
+            repeat: -1,
+            scrollTrigger: {
+                trigger: ".box3",
+                start: "top center",
+                toggleActions: 'play none none none',
+            },
+            onStart: () => console.log("Animation started on larger screens"),
+            onComplete: () => console.log("Animation completed on larger screens"),
+        }
+    },
+    smallerScreen: {
+        maxWidth: 'tablets',
+        animationOptions: {
+            opacity: 0.5,
+            duration: 1.5,
+            y: 100,
+            yoyo: false,
+            scrollTrigger: {
+                trigger: ".box3",
+                start: "top center+=100",
+                toggleActions: 'play none none none',
+            },
+            onStart: () => console.log("Animation started on smaller screens"),
+            onComplete: () => console.log("Animation completed on smaller screens"),
+        }
+    }
+};
+
+// Initialize RevealIt with the defined breakpoint options
+const box3Reveal = new RevealIt({
+    element: document.querySelector('.box3'),
+    animateOnMobile: true,
+    breakpointOptions: breakpointOptionsScroll
+});
+```
+
+### Breakpoints
+Breakpoints in the configuration are referenced by string names. The corresponding pixel values for each named breakpoint are as follows:
+
+```javascript
+const breakpoints = [
+    { 'mobile': 580 },
+    { 'tablets': 810 },
+    { 'tabletm': 1024 },
+    { 'tabletl': 1300 },
+    { 'laptop': 1570 },
+    { 'desktop': 1700 }
+];
 
 ```
 
