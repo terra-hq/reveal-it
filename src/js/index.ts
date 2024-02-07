@@ -21,7 +21,7 @@ var simpleReveal = new RevealIt({
             element.classList.remove('animation-started');
         },
         scrollTrigger: {
-            markers: true
+            markers: false
         }
     },
     animateOnMobile: true,
@@ -37,7 +37,7 @@ document.querySelectorAll('.js--reveal-it--multiple').forEach(function (element)
         element: element, options: {
 
             scrollTrigger: {
-                markers: true
+                markers: false
             }
         }
     }));
@@ -63,15 +63,26 @@ document.getElementById('triggerCustomAnimation').addEventListener('click', func
 
 // Create a RevealIt instance with callbacks
 //@ts-ignore
+const cbExample = document.querySelector(".js--reveal-it-callback");
 const revealWithCallbacks = new RevealIt({
-    element: document.querySelector(".js--reveal-it-callback"),
+    element: cbExample,
     options: {
         duration: 1,
         opacity: 0,
         yoyo: false,
         repeat: 2,
-        onStart: () => console.log("Animation started"),
-        onComplete: () => console.log("Animation completed")
+        onStart: function () {
+            //@ts-ignore
+            cbExample.classList.remove('animation-completed');
+            //@ts-ignore
+            cbExample.classList.add('animation-started');
+        },
+        onComplete: function () {
+            //@ts-ignore
+            cbExample.classList.add('animation-completed');
+            //@ts-ignore
+            cbExample.classList.remove('animation-started');
+        },
     }
 });
 
@@ -191,3 +202,4 @@ const box2Reveal = new RevealIt({
     animateOnMobile: true,
     breakpointOptions: breakpointOptionsRotate
 });
+

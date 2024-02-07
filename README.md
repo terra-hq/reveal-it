@@ -1,7 +1,7 @@
 # @terrahq/reveal-it
 
 Javascript module for animate elements written in Vanilla js.  
-[> examples](https://collapsify-terra.netlify.app/)
+[> examples](https://terra-revealit.netlify.app//)
 
 ## Usage
 
@@ -18,9 +18,12 @@ import RevealIt from "@terrahq/reveal-it";
 ```
 
 ### Initialize
-
+### JS
 ```javascript
-new RevealIt(options);
+ let example = new RevealIt({
+        element: document.querySelector('.js--reveal-it'),
+        // Optional: Customize options here
+    });
 ```
 
 ### Markup
@@ -28,176 +31,93 @@ new RevealIt(options);
 #### Minimum markup
 
 ```html
-<!-- 
-    Add data attribute, button/content element.
-    Control Button:  data-{namespase}-control="{ID}" * multiple elements
-    Toggle Content:  data-{namespase}-content="{ID}" * only one element
- -->
-<button type="button" data-collapsify-control="uniqID">Show/Hide Content</button>
-
-<div data-collapsify-content="uniqID">Toggle Content</div>
+<div class="js--reveal-it">
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Ea deleniti nisi maxime sequi corporis labore repellat impedit,
+        id vel, esse ad, culpa praesentium? Nobis quam fugiat natus,
+        at nisi cumque.
+    </p>
+</div>
 ```
 
-#### With `aria-*` attribute for accessibility
+## Initialize with options
 
-```html
-<button type="button" data-collapsify-control="uniqID" aria-expanded="false" aria-controls="contentID">Show/Hide Content</button>
-
-<div id="contentID" data-collapsify-content="uniqID" aria-hidden="true">Toggle Content</div>
+### JS
+```javascript
+const example = document.querySelector(".js--reveal-it-w-options");
+const revealWithCallbacks = new RevealIt({
+    element: example,
+    options: {
+        duration: 1,
+        opacity: 0,
+        yoyo: false,
+        repeat: 2,
+        onStart: function () {
+            example.classList.remove('animation-completed');
+            example.classList.add('animation-started');
+        },
+        onComplete: function () {
+            example.classList.add('animation-completed');
+            example.classList.remove('animation-started');
+        },
+    }
+});
 ```
-
 ## Options
 
 | Option Name       | Type                                     | Default                   | Desc                                                                                                                     |
-| ----------------- | ---------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| nameSpace         | string                                   | "collapsify"              | Set namespace for "toggleButtonAttr", "toggleContentAttr" & "toggleSelectOptionsAttr"                                    |
-| toggleButtonAttr  | string                                   | "data-collapsify-control" | data attribute for Button Element                                                                                        |
-| toggleContentAttr | string                                   | "data-collapsify-content" | data attribute for Content                                                                                               |
-| dropdownElement   | HTMLSelectElement                        | -                         | HTML dropdown element for tablets/mobiles                                                                                |
-| isTab             | boolean                                  | false                     | The package being used for tabs                                                                                          |
-| activeClass       | string                                   | "is-active"               | Add class on opened Element                                                                                              |
-| isAnimation       | boolean                                  | true                      | animation Slide                                                                                                          |
-| closeOthers       | boolean                                  | true                      | Close others Content                                                                                                     |
-| animationSpeed    | number                                   | 400                       | css transition duration(ms)                                                                                              |
-| cssEasing         | string                                   | "ease-in-out"             | css transition easing (only isAnimation:true)                                                                            |
-| onSlideStart      | (isOpen:boolean,contentID:string)=> void | () => void                | Callback on Open/Close Animation Start <br> @param {Boolean} isOpen <br> @param {String} contentID \* Don't ID Attribute |
-| onSlideEnd        | (isOpen:boolean,contentID:string)=> void | () => void                | Callback on Open/Close Animation End <br> @param {Boolean} isOpen <br> @param {String} contentID \* Don't ID Attribute   |
+|-------------------|------------------------------------------|---------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| opacity           | number                                   | 0                         | Initial opacity of the element before the animation starts.                                                              |
+| duration          | number                                   | 1                         | Duration of the animation in seconds.                                                                                    |
+| rotate            | number                                   | -                         | Degrees to rotate the element. Not set by default.                                                                       |
+| scale             | number                                   | -                         | Factor by which to scale the element. Not set by default.                                                                |
+| y                 | number                                   | -                         | Vertical movement in pixels. Not set by default.                                                                         |
+| x                 | number                                   | -                         | Horizontal movement in pixels. Not set by default.                                                                       |
+| repeat            | number                                   | -                        | Number of times the animation repeats. `-1` for infinite.                                                                |
+| ease              | string                                   | "none"                    | GSAP easing function to control animation pacing.                                                                        |
+| scrollTrigger     | object                                   | start: "top center", markers: false, toggleActions: 'play pause resume pause',                        | Configuration object for GSAP's ScrollTrigger plugin.                                                                    |
+| onStart           | function                                 | console.log("start")                       | Callback function that runs at the start of the animation.                                                              |
+| onComplete        | function                                 | console.log("finish")                       | Callback function that runs upon completion of the animation.                                                           |
+
+## Initialize with options and breakpoints
+
+### JS
+```javascript
+
+```
 
 ## Methods
 
-Open/Close Content
+### getAnimation()
+
+Retrieves the GSAP animation instance for further manipulation. This allows direct access to GSAP's animation methods such as `.restart()`, `.pause()`, `.play()`, and more.
+
+#### Usage
 
 ```javascript
-collapsify.open(contentID, [isRunCallback, isAnimation]);
+// If we want to restart the animation
+revealit.getAnimation().restart;
 ```
+
+### refresh()
+
+Refreshes the ScrollTrigger instance associated with the animation. This method is useful when the DOM changes in a way that affects the size or position of the animated element, ensuring the scroll animations remain accurate.
+
+#### Usage
 
 ```javascript
-collapsify.close(contentID, [isRunCallback, isAnimation]);
+revealit.refresh();
 ```
 
-## Samples
+### destroy()
 
-### JS
+Destroys the ScrollTrigger instance linked to the animation, effectively removing the scroll-triggered behaviors and listeners. Use this method to clean up when an animation is no longer needed to prevent memory leaks and ensure optimal performance.
+
+#### Usage
 
 ```javascript
-//Default Options
-const myAccrodion = new Collapsify();
-
-//Full Options
-const myAccrodionCustom = new Collapsify({
-    nameSpace: "collapsify", // Note: Be sure to set different names when creating multiple instances
-    activeClass: "is-active",
-    isAnimation: true,
-    closeOthers: true,
-    animationSpeed: 400,
-    cssEasing: "ease",
-    onSlideStart: (isOpen, contentID) => {
-        console.log(isOpen);
-        const buttonEl = document.querySelectorAll(`[data-collapsify-control='${contentID}']`);
-        console.log(buttonEl);
-    },
-    onSlideEnd: (isOpen, contentID) => {
-        console.log(isOpen);
-        const contentEl = document.querySelector(`[data-collapsify-content='${contentID}']`);
-        console.log(contentEl);
-    },
-});
-
-// Open by Js
-myAccrodion.open("content01");
-
-// Close by Js
-myAccrodion.close("content01");
-```
-
-### HTML
-
-```html
-<!-- 
-    BUTTON :  data-{namespase}-control="{ID}" * multiple element
-    CONTENT:  data-{namespase}-content="{ID}" * only one element
- -->
-<!-- basic -->
-<button type="button" data-collapsify-control="content01" aria-expanded="false" aria-controls="basicContent01">Show/Hide Content 01</button>
-<div id="basicContent01" data-collapsify-content="content01" aria-hidden="true">... Content 01 ...</div>
-
-<!-- if add activeClass(def: "is-active"), Opened on init. -->
-<button type="button" class="is-active" 　 data-collapsify-control="content02" aria-expanded="true" aria-controls="basicContent02">Show/Hide Content 02</button>
-<div id="basicContent02" class="is-active" data-collapsify-content="content02" aria-hidden="false">... Content 02 ...</div>
-
-<!-- can use nested accordion -->
-<button type="button" data-collapsify-control="parentContent" aria-expanded="true" aria-controls="netstedParantContent">Show/Hide parent content</button>
-<div id="netstedParantContent" data-collapsify-content="parentContent" aria-hidden="true">
-    ... parent content ...
-    <button type="button" 　 data-collapsify-control="childContent" aria-expanded="true" aria-controls="netstedChiledContent">Show/Hide child content</button>
-    <div id="netstedChiledContent" data-collapsify-content="childContent" aria-hidden="true">... child content ...</div>
-</div>
-```
-
-### JS
-
-```javascript
-//Tab example
-const tab = new Collapsify({
-    nameSpace: "tab",
-    closeOthers: true,
-    isTab: true,
-    dropdownElement: document.querySelector(".js--select-item-a"),
-});
-```
-
-### HTML
-
-```html
-<div class="c--tabs-a">
-    <div class="c--tabs-a__hd">
-        <ul class="c--tabs-a__hd__list">
-            <li class="c--tabs-a__hd__list__list-item">
-                <button
-                    class="c--tabs-a__hd__list__list-item__link c--tabs-a__hd__list__list-item__link--is-active js--select-tab"
-                    type="button"
-                    data-tab-control="tabContent-01"
-                    aria-expanded="false"
-                >
-                    Tab 01
-                </button>
-            </li>
-            <li class="c--tabs-a__hd__list__list-item">
-                <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tab-control="tabContent-02" aria-expanded="false">Tab 02</button>
-            </li>
-            <li class="c--tabs-a__hd__list__list-item">
-                <button class="c--tabs-a__hd__list__list-item__link js--select-tab" type="button" data-tab-control="tabContent-03" aria-expanded="false">Tab 03</button>
-            </li>
-        </ul>
-
-        <div class="c--tabs-a__hd__selector">
-            <select aria-label="tab selector" class="c--tabs-a__hd__selector__item js--select-item-a">
-                <option value="" disabled="" selected="">Select</option>
-                <option data-tab-dropdown-item="tabContent-01" value="">option 01</option>
-                <option data-tab-dropdown-item="tabContent-02" value="">option 02</option>
-                <option data-tab-dropdown-item="tabContent-03" value="">option 03</option>
-            </select>
-        </div>
-    </div>
-    <div class="c--tabs-a__bd c--tabs-a__bd--is-active" data-tab-content="tabContent-01" aria-hidden="true">
-        <p>
-            Content First: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam,
-            asperiores aliquid illum optio atque quidem.
-        </p>
-    </div>
-    <div class="c--tabs-a__bd" data-tab-content="tabContent-02" aria-hidden="true">
-        <p>
-            Content Second: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam,
-            asperiores aliquid illum optio atque quidem.
-        </p>
-    </div>
-    <div class="c--tabs-a__bd" data-tab-content="tabContent-03" aria-hidden="true">
-        <p>
-            Content Third: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores nostrum amet excepturi eum. Quo labore, est inventore incidunt debitis voluptatum qui itaque iste quam,
-            asperiores aliquid illum optio atque quidem.
-        </p>
-    </div>
-</div>
+revealit.destroy();
 ```
 
 ## License

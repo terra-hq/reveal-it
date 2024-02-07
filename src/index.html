@@ -32,7 +32,7 @@
     <div class="f--container">
         <div class="f--row">
             <div class="f--col-12">
-                <hr />
+                <hr />                
             </div>
         </div>
     </div>
@@ -57,9 +57,10 @@
             <div class="f--col-6 f--col-tabletm-12">
                 <h3 class="f--font-c f--sp-d">Simple Reveal Animation</h3>
                 <p class="f--font-e f--sp-d">
-                    This animation is specifically applied to the first element matched by the '.js--reveal-it-simple' class during the instance creation of the RevealIt class. This targeted approach allows for a precise activation of animations based on the element's scroll position, utilizing GSAP's ScrollTrigger plugin. The animation dynamically reveals content as users scroll, enhancing the page's interactive experience.
+                    This animation is specifically applied to the first element matched by the '.js--reveal-it-simple' class during the instance creation of the RevealIt class. By employing a targeted approach, the animation precisely activates based on the element's scroll position, utilizing GSAP's ScrollTrigger plugin. It employs a set of default options, such as initial opacity and animation duration, to dynamically reveal content as users scroll, thereby enhancing the page's interactive experience. These default settings ensure a smooth and accessible implementation, making the animation seamlessly integrate with the webpage's flow.
                 </p>
     
+                <p class="f--font-e">Example:</p>
                 <!-- Example element with the RevealIt animation -->
                 <div class="c--content-a js--reveal-it--simple">
                     <p class="f--font-e f--sp-d">
@@ -78,11 +79,26 @@
     // Import the RevealIt class
     import RevealIt from "./RevealIt";
     
-    // Initialize the animation on the first element with the class '.js--reveal-it-simple'
-    var exampleReveal = new RevealIt({
-        element: document.querySelector('.js--reveal-it--simple'),
-        // Optional: Customize options here
+    var element = document.querySelector('.js--reveal-it--simple');
+    
+    var simpleReveal = new RevealIt({
+        element: element
     });
+
+    /*This element will use the following default options 
+    with a 'from' type of animation, also by default:*/
+
+    const defaultOptions = {
+        opacity: 0,
+        duration: 1, // Default option
+        scrollTrigger: {
+            start: "top center",
+            markers: false,
+            toggleActions: 'play pause resume pause',
+        },
+        onStart: () => console.log("start"),
+        onComplete: () => console.log("finish"),
+    };
     </code>
     </pre>
                 <div class="c--note-a">
@@ -143,8 +159,7 @@ document.querySelectorAll('.js--reveal-it--multiple').forEach(function(element) 
                 <div class="c--note-a">
                     <p>
                         For multiple elements, each '.js--reveal-it--multiple' class element is given its own RevealIt
-                        instance. The 'toggleAllAnimations' button will control the animations of all these instances
-                        simultaneously.
+                        instance. 
                     </p>
                 </div>
             </div>
@@ -208,13 +223,16 @@ const customReveal = new RevealIt({
         repeat: 3
     }
 });
-    
+document.getElementById('triggerCustomAnimation').addEventListener('click', 
+function () {
+    customReveal.getAnimation().restart();
+});
                     </code>
                 </pre>
                 <div class="c--note-a">
                     <p>
                         The custom RevealIt instance allows you to define specific animation properties.
-                        This provides flexibility to tailor the animation to fit different scenarios or UI elements.
+                        This provides flexibility to tailor the animation to fit different scenarios or UI elements. We're also using .getAnimation().restart(); in the button to restart the animation.
                     </p>
                 </div>
             </div>
@@ -252,18 +270,28 @@ const customReveal = new RevealIt({
 <pre class="c--code-a">
 <label class="c--code-a__label">JS</label>
 <code class="c--code-a__content">
-// Import the RevealIt class
-import RevealIt from "./RevealIt";
-
-// Create a RevealIt instance with callbacks
-const revealWithCallbacks = new RevealIt({
-    element: document.querySelector(".js--reveal-it-callback"),
-    options: {
-        // ... other animation options ...
-    },
-    onStart: () => console.log("Animation started"),
-    onComplete: () => console.log("Animation completed")
-});
+    const cbExample = document.querySelector(".js--reveal-it-callback");
+    const revealWithCallbacks = new RevealIt({
+        element: cbExample,
+        options: {
+            duration: 1,
+            opacity: 0,
+            yoyo: false,
+            repeat: 2,
+            onStart: function () {
+                cbExample.classList.remove('animation-completed');
+                cbExample.classList.add('animation-started');
+            },
+            onComplete: function () {
+                cbExample.classList.add('animation-completed');
+                cbExample.classList.remove('animation-started');
+            },
+        }
+    });
+    
+    document.getElementById('triggerAnimationWithCallbacks').addEventListener('click', function () {
+        revealWithCallbacks.getAnimation().restart();
+    });
 
 </code>
 </pre>
@@ -431,28 +459,54 @@ const revealWithCallbacks = new RevealIt({
     <pre class="c--code-a">
     <label class="c--code-a__label">JS</label>
     <code class="c--code-a__content">
-    // Define responsive ScrollTrigger animation options for the red square
-    const breakpointOptionsScroll = {
-        largerScreen: {
-            minWidth: 'tablets', // Logic for larger screens
-            animationOptions: {
-                // Animation options for larger screens
+        // Breakpoint options
+        const breakpointOptionsScroll = {
+            largerScreen: {
+                minWidth: 'tablets', 
+                animationOptions: {
+                    opacity: 1,
+                    duration: 1,
+                    x: 100,
+                    yoyo:true,
+                    repeat:-1,
+                    scrollTrigger: {
+                        trigger: ".box3",
+                        start: "top center",
+                        toggleActions: 'play none none none',
+                    },
+                    onStart: () => console.log("Animation started 
+                    on larger screens"),
+                    onComplete: () => console.log("Animation completed 
+                    on larger screens"),
+                }
+            },
+        
+            smallerScreen: {
+                maxWidth: 'tablets', 
+                animationOptions: {
+                    opacity: 0.5,
+                    duration: 1.5,
+                    y: 100,
+                    yoyo:false,
+                    scrollTrigger: {
+                        trigger: ".box3",
+                        start: "top center+=100",
+                        toggleActions: 'play none none none',
+                    },
+                    onStart: () => console.log("Animation started 
+                    on smaller screens"),
+                    onComplete: () => console.log("Animation completed 
+                    on smaller screens"),
+                }
             }
-        },
-        smallerScreen: {
-            maxWidth: 'tablets', // Logic for smaller screens
-            animationOptions: {
-                // Animation options for smaller screens
-            }
-        }
-    };
-    
-    // Initialize the animation on the '.box3' element
-    const box3Reveal = new RevealIt({
-        element: document.querySelector('.box3'),
-        animateOnMobile: true,
-        breakpointOptions: breakpointOptionsScroll
-    });
+        };
+
+        //Instance
+        const box3Reveal = new RevealIt({
+            element: document.querySelector('.box3'),
+            animateOnMobile: true,
+            breakpointOptions: breakpointOptionsScroll
+        });
     </code>
     </pre>
                 <div class="c--note-a">
@@ -463,7 +517,13 @@ const revealWithCallbacks = new RevealIt({
             </div>
         </div>
     </div>
-    
+    <div class="f--container">
+        <div class="f--row">
+            <div class="f--col-12">
+                <hr />
+            </div>
+        </div>
+    </div>
 
     <script type="module" src="./js/index.ts"></script>
 </body>
