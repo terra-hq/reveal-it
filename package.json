@@ -19,7 +19,7 @@
   ],  
   "scripts": {
     "dev": "vite",
-    "build": "rollup -c",
+    "build": "tsc && vite build && rollup -c my-rollup-config-for-js-only.js",
     "preview": "vite preview",
     "build:umd": "rollup -c rollup.config.umd.js"
   },
