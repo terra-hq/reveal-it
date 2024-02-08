@@ -25,7 +25,7 @@ export default {
       file: 'dist/reveal-it.umd.js', 
       format: 'umd',
       globals: {
-        gsap: 'GSAP'
+        gsap: 'gsap'
       },
       sourcemap: true
     }

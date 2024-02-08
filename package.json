@@ -1,7 +1,7 @@
 {
   "name": "@terrahq/reveal-it",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.5",
   "type": "module",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
@@ -13,6 +13,10 @@
       "default": "./dist/reveal-it.umd.js"
     }
   },
+  "files": [
+    "dist",
+    "src"
+  ],  
   "scripts": {
     "dev": "vite",
     "build": "rollup -c",
