@@ -21,6 +21,7 @@ var element = document.querySelector('.js--reveal-it--simple');
 var simpleReveal = new RevealIt({
     element: element,
     options: {
+        opacity: 0,
         onStart: function () {
             //@ts-ignore
             element.classList.add('animation-started');
@@ -45,7 +46,9 @@ var reveals = [];
 //@ts-ignore
 document.querySelectorAll('.js--reveal-it--multiple').forEach(function (element) {
     reveals.push(new RevealIt({
-        element: element, options: {
+        element: element, 
+        options: {
+            opacity: 0,
 
             scrollTrigger: {
                 markers: false
@@ -58,6 +61,7 @@ document.querySelectorAll('.js--reveal-it--multiple').forEach(function (element)
 //@ts-ignore
 const customReveal = new RevealIt({
     element: document.querySelector(".js--reveal-it-custom"),
+    type: "from",
     options: {
         duration: 2,
         opacity: 0,

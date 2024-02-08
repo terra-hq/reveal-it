@@ -59,11 +59,14 @@ These script tags will load the latest versions of GSAP, the ScrollTrigger plugi
 
 ## Initialize with options
 
+Besides options you can also add the animation type. By default it's 'from', but you can change it to 'to' or 'fromTo'.
+
 ### JS
 ```javascript
 const example = document.querySelector(".js--reveal-it-w-options");
 const revealWithCallbacks = new RevealIt({
     element: example,
+    type: "from", //it's 'from' by default but you can change it to 'to' or 'fromTo'
     options: {
         duration: 1,
         opacity: 0,
@@ -84,7 +87,7 @@ const revealWithCallbacks = new RevealIt({
 
 | Option Name       | Type                                     | Default                   | Desc                                                                                                                     |
 |-------------------|------------------------------------------|---------------------------|--------------------------------------------------------------------------------------------------------------------------|
-| opacity           | number                                   | 0                         | Initial opacity of the element before the animation starts.                                                              |
+| opacity           | number                                   | -                        | Initial opacity of the element before the animation starts.                                                              |
 | duration          | number                                   | 1                         | Duration of the animation in seconds.                                                                                    |
 | rotate            | number                                   | -                         | Degrees to rotate the element. Not set by default.                                                                       |
 | scale             | number                                   | -                         | Factor by which to scale the element. Not set by default.                                                                |

@@ -2,13 +2,13 @@ import gsap from 'gsap';
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
-import JSUTIL, { isDevice } from '@andresclua/jsutil';
+import { isDevice } from '@andresclua/jsutil';
 
 import { breakpoints, currentBreakpoint, getCurrentBreakpoint, updateBreakpointOnResize } from '@teamthunderfoot/breakpoints';
 
 class RevealIt {
     constructor(_payload = {}) {
-        console.log('RevealIt', _payload);
+        //console.log('RevealIt', _payload);
 
         this.DOM = { element: _payload.element };
         this.animateOnMobile = _payload.animateOnMobile !== undefined ? _payload.animateOnMobile : true; // Default to true
@@ -18,7 +18,7 @@ class RevealIt {
 
         // Default options
         const defaultOptions = {
-            opacity: 0,
+            //opacity: 0,
             duration: 1, // Default option
             scrollTrigger: {
                 start: "top center",

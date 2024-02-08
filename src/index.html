@@ -87,14 +87,17 @@
     var element = document.querySelector('.js--reveal-it--simple');
     
     var simpleReveal = new RevealIt({
-        element: element
+        element: element,
+        type: from,
+        options: {
+            opacity: 0,
+        }
     });
 
     /*This element will use the following default options 
     with a 'from' type of animation, also by default:*/
 
     const defaultOptions = {
-        opacity: 0,
         duration: 1, // Default option
         scrollTrigger: {
             start: "top center",
@@ -154,9 +157,19 @@
                     <label class="c--code-a__label">JS</label>
 <code class="c--code-a__content">
 // For multiple elements
+
 var reveals = [];
-document.querySelectorAll('.js--reveal-it--multiple').forEach(function(element) {
-    reveals.push(new RevealIt({ element: element }));
+document.querySelectorAll('.js--reveal-it--multiple').forEach(function (element) {
+    reveals.push(new RevealIt({
+        element: element, 
+        options: {
+            opacity: 0,
+
+            scrollTrigger: {
+                markers: false
+            }
+        }
+    }));
 });
 
 </code>
@@ -189,7 +202,7 @@ document.querySelectorAll('.js--reveal-it--multiple').forEach(function(element) 
                     <p class="f--font-e f--sp-d">
                         This example demonstrates creating a custom animation with specific parameters. You can specify options such as:
                     </p>
-                    <ul>
+                    <ul><li><strong>type</strong>: (outside of options) animation behaviour, 'from' by default, you can change it to 'to' or 'fromTo'.</li>
                         <li><strong>duration</strong>: The length of time (in seconds) the animation runs.</li>
                         <li><strong>opacity</strong>: The target opacity for the animated element, ranging from 0 (fully transparent) to 1 (fully opaque).</li>
                         <li><strong>yoyo</strong>: A boolean value that, when set to true, causes the animation to go back and forth, effectively repeating the animation in reverse.</li>
@@ -221,6 +234,7 @@ import RevealIt from "./RevealIt";
 // Create a custom reveal animation
 const customReveal = new RevealIt({
     element: document.querySelector(".js--reveal-it-custom"),
+    type: "from",
     options: {
         duration: 2,
         opacity: 0,
