@@ -26,6 +26,22 @@ import RevealIt from "@terrahq/reveal-it";
     });
 ```
 
+### Directly in Browser (CDN)
+
+You can also use @terrahq/reveal-it directly in your browser without installing it, by including it from UNPKG. This is useful for quick prototypes or projects where you are not using a build system like Webpack or Rollup.
+
+Add the following `<script>` tags to your HTML to include `@terrahq/reveal-it` and its GSAP dependency directly in your browser using:
+
+
+```html
+ <!-- GSAP (required by @terrahq/reveal-it) -->
+ <script src="https://unpkg.com/gsap@latest"></script>
+ <!-- @terrahq/reveal-it -->
+ <script src="https://unpkg.com/@terrahq/reveal-it@latest/dist/reveal-it.umd.js"></script>
+```
+
+These script tags will load the latest versions of GSAP, the ScrollTrigger plugin, and `@terrahq/reveal-it`
+
 ### Markup
 
 #### Minimum markup
