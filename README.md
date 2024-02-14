@@ -96,8 +96,8 @@ const revealWithCallbacks = new RevealIt({
 | repeat            | number                                   | -                        | Number of times the animation repeats. `-1` for infinite.                                                                |
 | ease              | string                                   | "none"                    | GSAP easing function to control animation pacing.                                                                        |
 | scrollTrigger     | object                                   | start: "top center", markers: false, toggleActions: 'play pause resume pause',                        | Configuration object for GSAP's ScrollTrigger plugin.                                                                    |
-| onStart           | function                                 | console.log("start")                       | Callback function that runs at the start of the animation.                                                              |
-| onComplete        | function                                 | console.log("finish")                       | Callback function that runs upon completion of the animation.                                                           |
+| onStart           | function                                 |                        | Callback function that runs at the start of the animation.                                                              |
+| onComplete        | function                                 |                       | Callback function that runs upon completion of the animation.                                                           |
 
 
 ## Responsive Animation Example with Breakpoints

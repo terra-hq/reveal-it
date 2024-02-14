@@ -25,8 +25,8 @@ class RevealIt {
                 markers: false,
                 toggleActions: 'play pause resume pause',
             },
-            onStart: () => console.log("start"),
-            onComplete: () => console.log("finish"),
+            //onStart: () => console.log("start"),
+            //onComplete: () => console.log("finish"),
         };
 
         // Merge default options with user-provided options
