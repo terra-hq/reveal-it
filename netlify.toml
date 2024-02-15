@@ -1,0 +1,13 @@
+# netlify.toml
+
+[build]
+  # Directory to publish (the output of the build command)
+  publish = "dist"
+  # Your build command
+  command = "npm run build"
+
+# Redirects and rewrites (optional)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
