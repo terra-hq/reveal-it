@@ -1,7 +1,7 @@
 # @terrahq/reveal-it
 
 Javascript module for animate elements written in Vanilla js.  
-[> examples](https://terra-revealit.netlify.app//)
+
 
 ## Usage
 

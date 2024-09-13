@@ -7,6 +7,7 @@ const entryPath = resolve(__dirname, 'src/js/RevealIt.js');
 
 export default defineConfig({
   root,
+  publicDir: 'public',
   plugins: [], 
   build: {
     lib: {
